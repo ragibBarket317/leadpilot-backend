@@ -3,6 +3,8 @@ const mongoose = require('mongoose')
 const errorHandler = require('./middleware/errorHandler')
 const asyncHandler = require('./utils/asyncHandler')
 const AppError = require('./utils/AppError')
+const authRoutes = require('./modules/auth/auth.routes')
+
 const app = express()
 
 app.use(express.json())
@@ -17,6 +19,18 @@ app.get('/api/health', (req, res) => {
       database: databaseStatus,
     },
   })
+})
+
+app.use('/api/auth', authRoutes)
+
+app.use((req, res, next) => {
+  const error = new AppError(
+    `Route not found: ${req.method} ${req.originalUrl}`,
+    404,
+    'ROUTE_NOT_FOUND',
+  )
+
+  next(error)
 })
 
 app.use(errorHandler)
