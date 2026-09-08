@@ -31,8 +31,26 @@ const generateToken = (user) => {
   )
 }
 
+const createUser = async (name, email, password) => {
+  const existingUser = await User.findOne({ email })
+
+  if (existingUser) {
+    return null
+  }
+
+  const hashedPassword = await hashPassword(password)
+
+  return User.create({
+    name,
+    email,
+    password: hashedPassword,
+    role: 'user',
+  })
+}
+
 module.exports = {
   hashPassword,
   loginUser,
   generateToken,
+  createUser,
 }

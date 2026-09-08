@@ -1,6 +1,6 @@
 const AppError = require('../../utils/AppError')
 const asyncHandler = require('../../utils/asyncHandler')
-const { loginUser, generateToken } = require('./auth.service')
+const { loginUser, generateToken, createUser } = require('./auth.service')
 const User = require('./user.model')
 
 const login = asyncHandler(async (req, res) => {
@@ -50,7 +50,35 @@ const getMe = asyncHandler(async (req, res) => {
   })
 })
 
+// Create user by admin
+const createNewUser = asyncHandler(async (req, res) => {
+  const { name, email, password } = req.body
+
+  const user = await createUser(name, email, password)
+
+  if (!user) {
+    throw new AppError(
+      'User with this email already exists',
+      409,
+      'USER_ALREADY_EXISTS',
+    )
+  }
+
+  res.status(201).json({
+    success: true,
+    data: {
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+    },
+  })
+})
+
 module.exports = {
   login,
   getMe,
+  createNewUser,
 }
