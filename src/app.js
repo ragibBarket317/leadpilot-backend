@@ -4,6 +4,7 @@ const errorHandler = require('./middleware/errorHandler')
 const asyncHandler = require('./utils/asyncHandler')
 const AppError = require('./utils/AppError')
 const authRoutes = require('./modules/auth/auth.routes')
+const companyRoutes = require('./modules/companies/company.routes')
 
 const app = express()
 
@@ -22,6 +23,7 @@ app.get('/api/health', (req, res) => {
 })
 
 app.use('/api/auth', authRoutes)
+app.use('/api/companies', companyRoutes)
 
 app.use((req, res, next) => {
   const error = new AppError(
