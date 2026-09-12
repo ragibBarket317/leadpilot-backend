@@ -7,6 +7,7 @@ const authRoutes = require('./modules/auth/auth.routes')
 const companyRoutes = require('./modules/companies/company.routes')
 const contactRoutes = require('./modules/contacts/contact.routes')
 const leadRoutes = require('./modules/leads/lead.routes')
+const taskRoutes = require('./modules/tasks/task.routes')
 
 const app = express()
 
@@ -28,6 +29,7 @@ app.use('/api/auth', authRoutes)
 app.use('/api/companies', companyRoutes)
 app.use('/api/contacts', contactRoutes)
 app.use('/api/leads', leadRoutes)
+app.use('/api/tasks', taskRoutes)
 
 app.use((req, res, next) => {
   const error = new AppError(
