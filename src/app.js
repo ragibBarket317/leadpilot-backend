@@ -9,6 +9,7 @@ const contactRoutes = require('./modules/contacts/contact.routes')
 const leadRoutes = require('./modules/leads/lead.routes')
 const taskRoutes = require('./modules/tasks/task.routes')
 const pipelineRoutes = require('./modules/pipeline/pipeline.routes')
+const prospectingRoutes = require('./modules/prospecting/prospecting.routes')
 
 const app = express()
 
@@ -32,6 +33,7 @@ app.use('/api/contacts', contactRoutes)
 app.use('/api/leads', leadRoutes)
 app.use('/api/tasks', taskRoutes)
 app.use('/api/pipeline', pipelineRoutes)
+app.use('/api/prospecting', prospectingRoutes)
 
 app.use((req, res, next) => {
   const error = new AppError(
