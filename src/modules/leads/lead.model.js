@@ -40,6 +40,7 @@ const leadSchema = new mongoose.Schema(
         'contacted',
         'replied',
         'meeting',
+        'proposal',
         'won',
         'lost',
       ],
